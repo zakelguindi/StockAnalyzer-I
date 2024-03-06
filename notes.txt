@@ -1,0 +1,55 @@
+I'm going to have to be efficient about the amount of requests I make as well as the amount of 
+amount of space I'm taking up. 
+The data I need to pull goes as follows: 
+* ticker name 
+* share price 
+* shares outstanding 
+* total debt
+* cash 
+* Long-term interest 
+
+1,2 can be done in the same pull. 3-5 can be done in the same pull. 6 can't. 
+The good news is that the only one I need to consistently update is #2. 3-6 are updated quarterly. 
+
+Once I pull a company's data, I need to save it to my own API. I'll need to create a server on render or something
+Or I can write to json files on GH. this might be easier tbh. 
+
+So, #1 will be one giant pull from tiingo. I'll save all the tickers to JSON and leave the remaining values as null. 
+
+#2- share price will be updated once every day with one pull from tiingo. Need to figure out how to maybe only execute it once. 
+Maybe if I have a button that will call it instead of automatically calling it in my window.onload 
+This will save a ton of space for TIINGO. I'm already 430 MB throguh of my 2G. 
+
+#3-6. This is the hardest bc alphavantage only allows 25 reqs/day. 
+Thankfully, I only need to pull this data once a quarter per company. 
+Once I have it pulled I need to write it to a json file. 
+
+There's like 13,000 tickers on the TIINGO list that I narrowed down from the original 30k. 
+The other 17,000 were like penny stocks and shit like that. 
+I'm gonna try to figure out a way to make a list of the entire S&P and save the tickers as JSON objects.
+Once I do this, I'll be able to search 25 of these companies per day and get all of their income statement/balance sheets.
+I might have to get #6 from somewhere else because it'd be an extra request and make it half as efficient 
+
+So, my JSON will work as follows: 
+* 500 tickers that never change 
+* opening prices that are overridden daily 
+* financial info that changes every quarter. 
+** calculations based on the financial info + stock prices that update daily (with the stock prices)
+* a boolean to determine if it's been checked or not. 
+
+I don't know if I need to save my calculations. I guess it'd be nice and wouldn't take up a ton of space on the JSON. 
+
+So, on this website I'll have a "generate new requests" button that will generate the next 25 reports. 
+- I'll do this by having it search for the first JSONObj with a false "checked" boolean and doing the next 25 objects. 
+
+I will have a "update daily prices" button that will update all the prices for that day. 
+- would be cool to make it unclickable until tmrw once it's been clicked. or have it update on its own 
+
+I will then have a table that lists all the (necessary) data. EV/share. Over/Under. Stock price. Ticker 
+Maybe you can click on this table and it'll show you the expanded data. 
+
+-----------------------------------
+I need to pull more historical data for this. It would be beneficial to have 10-20 year data points uploaded to this Google API that I make. 
+I pull a company's 20-year balance-sheet once. should be 80 total price points per company (20 year-quarterly reports). 
+I upload this to API. 
+We can call these "Transfer Company Data". I can do a max of 25 per day. If I'd like to find a new company, I can just search it and it'll match the ticker to the thing. 

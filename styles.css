@@ -1,0 +1,70 @@
+:root {
+    --primary: #00274E; 
+    --secondary: #F5F5F5; 
+    --accent1: #008080; 
+    --accent2: #FFD700; 
+    --background: #FFFFFF; 
+    --text: #333333; 
+}
+
+/* Google API Link: 
+https://script.google.com/home/projects/1_J_dWk0V2us3eJmu76dsPCUG3CoqI_Yf4W72y5-PkXW663YYpzCO5Qsr/edit
+ */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #00274E;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;
+  }
+
+  nav {
+    background-color: #008080;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;
+  }
+
+  section {
+    padding: 20px;
+    text-align: center;
+  }
+
+  footer {
+    background-color: #00274E;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;
+  }
+
+  button {
+    background-color: #FFD700;
+    color: #00274E;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .stock-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: left;
+  }
+
+  .stock-card h3 {
+    color: #00274E;
+  }
+
+  .stock-card p {
+    color: #333333;
+  }

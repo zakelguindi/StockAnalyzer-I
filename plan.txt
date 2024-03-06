@@ -1,0 +1,17 @@
+Here is what my next steps should be: 
+-------------------------------------------------------------
+1. create an HTML and client-side JS with the basic functionality. I don't need it to communicate with server yet. 
+functionality: 
+    - have list of data 
+    - have JSON templates made 
+    - have buttons that don't work yet 
+    - have JS and HTML files complete. 
+    - UI shouldn't be nice but should be able to do basic functionaltiy on app. 
+    - sections: 
+        - enter ticker name (console.log result)
+        - have "refresh prices" button. 
+        - calculations section 
+        - 
+
+
+
