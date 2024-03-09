@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stock-Market Data</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Apps Script API Demo</title>
     <link rel="stylesheet" href="styles.css">
     <!-- <script src="alphavantage.js"></script> -->
 </head>
@@ -20,7 +22,7 @@
       </nav>
     
       <section>
-        <div class="stock-card">
+        <!-- <div class="stock-card">
           <h3>Company Name</h3>
           <p>Stock Symbol: ABC</p>
           <p>Current Price: $100.00</p>
@@ -34,12 +36,25 @@
           <p>Current Price: $75.50</p>
           <button>Buy</button>
           <button>Sell</button>
-        </div>
+        </div> -->
+        <!-- Form to submit data -->
+        <form id="postDataForm">
+            <label for="dataInput">Enter Data:</label>
+            <input type="text" id="dataInput" required>
+            <button type="button" onclick="postData()">Submit Data</button>
+        </form>
+
+        <div id="fetchedData"></div>
       </section>
+
+      
     
       <footer>
         <p>&copy; 2024 Stock Market Tracker</p>
       </footer>
+
+      <script src="myserver.js"></script>
+
 </body>
 
 </html>
