@@ -53,20 +53,43 @@ app.get("/", (req, res) => {
 
 // API endpoints
 app.get('/api/companies', async (req, res) => {
-    const companies = await Company.find();
-    res.json(companies);
+    getCompanies(res); 
 });
+
+const getCompanies = async(res) => {
+    const companies = await Company.find(); 
+    res.send(companies); 
+};
 
 app.post('/api/companies', async (req, res) => {
     const company = new Company({
         ticker: req.body.ticker,
-        yearlyData: req.body.yearlyData
+        yearlyData: req.body.yearlyData.map((yearlyDataEntry) => {
+            return {
+                price: yearlyDataEntry.price,
+                overUnder: yearlyDataEntry.overUnder,
+                EVperShare: yearlyDataEntry.EVperShare,
+                EV: yearlyDataEntry.EV,
+                EnterpriseVal: yearlyDataEntry.EnterpriseVal,
+                MarketCap: yearlyDataEntry.MarketCap,
+                BalSheet: yearlyDataEntry.BalSheet.map((balSheetEntry) => {
+                    return {
+                        sharesOutstanding: balSheetEntry.sharesOutstanding,
+                        debt: balSheetEntry.debt,
+                        cash: balSheetEntry.cash,
+                    };
+                }),
+            };
+        }),
     });
 
-    company.save()
-        .then(savedCompany => res.json(savedCompany))
-        .catch(error => res.status(400).send(error.message));
+    createCompany(company, res); 
 });
+
+const createCompany = async(company, res) => {
+    const result = await company.save(); 
+    res.send(company); 
+}
 
 // Example fetch call in app.js
   

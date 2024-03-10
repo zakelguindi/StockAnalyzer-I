@@ -18,18 +18,7 @@ const findBalanceSheet = async (ticker) => {
 
 
 const getPrices = async(ticker) => {
-    /*
-    try {
-        const response = (await fetch('https://api.tiingo.com/iex/?token=f6fa8e981fe1642c429672a85ea5244489401ebc'));
-        if(!response.ok) {
-            throw new Error("Failed to fetch from API"); 
-        }
-        const jsonData = await response.json(); 
-        return findLivePriceByTicker(ticker, jsonData); 
-    } catch(error) {
-        console.log(error);
-    }
-    */
+
     try {
         const response = (await fetch(`https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2023-01-09?adjusted=true&apiKey=i0BKt_No1GvmJoEvpEf4MHxUGzSzxBvI`));
         if(!response.ok) {
@@ -69,11 +58,57 @@ async function searchCompany() {
 
     const currQuarter = balanceSheet.quarterlyReports[0]; 
     const sharesOutstanding = currQuarter.commonStockSharesOutstanding; 
+    console.log(sharesOutstanding)
     const debt = currQuarter.totalLiabilities; 
     const cash = currQuarter.cashAndCashEquivalentsAtCarryingValue; 
 
-    
+    // displayDetails(ticker, price, currQuarter);
+    postToAPI(ticker, price, sharesOutstanding, debt, cash); 
 };
+
+async function postToAPI(ticker, price, sharesOutstanding, debt, cash) {
+    const apiUrl = 'https://stockanalyzer-ii.onrender.com/api/companies';
+
+    const markCap = price * sharesOutstanding; 
+    const enterpriseVal = Number(markCap) + Number(debt) - Number(cash); 
+    const EV = enterpriseVal - debt; 
+    const evPerShare = EV/sharesOutstanding; 
+    const overUnder = (price-evPerShare)/evPerShare; 
+
+    const data = {
+        "ticker": ticker, 
+        "yearlyData": [{
+            "price": price, 
+            "overUnder": overUnder, 
+            "EVperShare": evPerShare, 
+            "EnterpriseVal": enterpriseVal, 
+            "MarketCap": markCap, 
+            "BalSheet": [{
+                "sharesOutstanding": sharesOutstanding, 
+                "debt": debt, 
+                "cash": cash
+            }]
+        }]
+    }
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to post data to API: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log('Data posted successfully:', responseData);
+    } catch (error) {
+        console.error('Error posting data to API:', error);
+    }
+}
 
 /*
 const showBalSheet = async (ticker) => {
