@@ -1,13 +1,20 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const app = express();
-const port = 3000;
+const express = require("express"); 
+const app = express(); 
+const Joi = require("joi"); 
+const multer = require("multer"); 
+app.use(express.static("public")); 
+app.use(express.json()); 
+const cors = require("cors"); 
+app.use(cors()); 
+const mongoose = require("mongoose"); 
+const port = 3000; 
 
-app.use(express.json());
+const upload = multer({ dest:__dirname + "/public/images"});
+
 
 // Connect to MongoDB
 mongoose
-    .connect('mongodb://localhost:27017/StockAnalyzer-I')
+    .connect("mongodb+srv://zakelguindi:Zakary13@cluster0.nj3vpi4.mongodb.net/StockAnalyzer-I")
     .then(() => console.log("You're connected to MongoDB"))
     .catch((err) => console.error("couldn't connect to MongoDB")); 
 const db = mongoose.connection;
@@ -34,6 +41,11 @@ const companySchema = new mongoose.Schema({
 });
 
 const Company = mongoose.model('Company', companySchema);
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname+"/index.html"); 
+});
+
 
 // API endpoints
 app.get('/api/companies', async (req, res) => {
