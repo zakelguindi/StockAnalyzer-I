@@ -1,4 +1,4 @@
-const express = require("express"); 
+// const express = require("express"); 
 const app = express(); 
 const Joi = require("joi"); 
 const multer = require("multer"); 
@@ -11,12 +11,6 @@ const mongoose = require("mongoose");
 const upload = multer({ dest:__dirname + "/public/images"});
 
 
-mongoose
-    .connect(
-        "mongodb+srv:"
-    )
-    .then(() => console.log("Connected to mongoDB"))
-    .catch((err) => console.log("couldn't connect to mondoDB: ", err)); 
 
 
 const companySchema = new mongoose.Schema({
@@ -115,7 +109,7 @@ companySchema.pre('save', function (next) {
                 if(EnterpriseVal === undefined || typeof EnterpriseVal !== 'number') {
                     return next(new Error("Invalid Enterprise Val")); 
                 }
-                if(MarketCap === undefined || typeof MarketCCap !== 'number') {
+                if(MarketCap === undefined || typeof MarketCap !== 'number') {
                     return next(new Error("Invalid Market Cap")); 
                 }
                 
