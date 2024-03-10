@@ -29,22 +29,27 @@
           <button>Buy</button>
           <button>Sell</button>
         </div>
-    
-        <div class="stock-card">
-          <h3>Another Company</h3>
-          <p>Stock Symbol: XYZ</p>
-          <p>Current Price: $75.50</p>
-          <button>Buy</button>
-          <button>Sell</button>
-        </div> -->
+  -->
         <!-- Form to submit data -->
         <form id="postDataForm">
-            <label for="dataInput">Enter Data:</label>
-            <input type="text" id="dataInput" required>
-            <button type="button" onclick="postData()">Submit Data</button>
+            <label for="ticker">Search Company by Ticker</label>
+            <input type="text" id="ticker" name="ticker" required>
+            <button type="button" onclick="searchCompany()">Submit</button>
         </form>
-
+           
+        <div class="stock-card">
+            <h3>Another Company</h3>
+            <p>Stock Symbol: XYZ</p>
+            <p>Current Price: $75.50</p>
+            <button>Buy</button>
+            <button>Sell</button>
+          </div>
         <div id="fetchedData"></div>
+      </section>
+
+      <section>
+        <div id="foundCompanies">Found Companies</div>
+        <div id="savedCompanies">Saved Companies</div>
       </section>
 
       

@@ -9,6 +9,7 @@ app.use(cors());
 const mongoose = require("mongoose"); 
 const port = 3000; 
 
+
 const upload = multer({ dest:__dirname + "/public/images"});
 
 
@@ -42,6 +43,9 @@ const companySchema = new mongoose.Schema({
 
 const Company = mongoose.model('Company', companySchema);
 
+
+
+
 app.get("/", (req, res) => {
     res.sendFile(__dirname+"/index.html"); 
 });
@@ -53,7 +57,7 @@ app.get('/api/companies', async (req, res) => {
     res.json(companies);
 });
 
-app.post('/api/companies', (req, res) => {
+app.post('/api/companies', async (req, res) => {
     const company = new Company({
         ticker: req.body.ticker,
         yearlyData: req.body.yearlyData
@@ -63,6 +67,9 @@ app.post('/api/companies', (req, res) => {
         .then(savedCompany => res.json(savedCompany))
         .catch(error => res.status(400).send(error.message));
 });
+
+// Example fetch call in app.js
+  
 
 // Start the server
 app.listen(port, () => {
