@@ -100,12 +100,12 @@ const populateBalSheetByQ = (currentBalQuarter, price) => {
     // const 
 }
 
-// static data: pulling works! 
-let tgtprice = 148.415; 
-let tgtsharesoutstanding = 461651176; 
-let tgtdebt = 1112000000; 
-let tgtcash = 1910000000; 
-let tgtlti = 0; 
+// // static data: pulling works! 
+// let tgtprice = 148.415; 
+// let tgtsharesoutstanding = 461651176; 
+// let tgtdebt = 1112000000; 
+// let tgtcash = 1910000000; 
+// let tgtlti = 0; 
 
 const getOptionItem = (option) => {
     const optSection = document.createElement("section"); 
